@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-serif: "Playfair Display", Georgia, serif;
+  
+  --color-brand-dark: #040404;
+  --color-accent-blue: #0052ec;
+  --color-accent-glow: rgba(0, 82, 236, 0.15);
+  
+  --animate-orbit: orbit 60s linear infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.3; filter: blur(30px); }
+    50% { opacity: 0.7; filter: blur(50px); }
+  }
+}
+
+/* Hard seal on top-level window/document to prevent iframe offsets */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+@media (pointer: fine) {
+  html, body, button, a, select, textarea, input, [role='button'], .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #040404;
+}
+::-webkit-scrollbar-thumb {
+  background: #111;
+  border-radius: 4px;
+  border: 2px solid #040404;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #222;
+}
+
+/* Glassmorphism primitives */
+.glass-panel {
+  background: rgba(8, 8, 8, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(12, 12, 12, 0.8);
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 10px 40px -10px rgba(0, 82, 236, 0.15);
+  transform: translateY(-4px);
+}
+
+.glow-card {
+  position: relative;
+}
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0) 50%, rgba(255,255,255,0.05) 100%);
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Grid overlay background */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.radar-sweep {
+  background: linear-gradient(rgba(0, 82, 236, 0.1), transparent);
+  animation: sweep 8s linear infinite;
+  transform-origin: top;
+}
+
+@keyframes sweep {
+  0% { transform: scaleY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* Text Reveal Style */
+.text-glow {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Thin custom scrollbar for inner sections */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.4);
+}
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* Hide scrollbar on Canvas but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
